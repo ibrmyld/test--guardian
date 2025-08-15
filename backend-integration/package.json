@@ -1,0 +1,22 @@
+{
+  "name": "raliux-guardian-middleware",
+  "version": "1.0.0",
+  "description": "Raliux Web Guardian backend entegrasyon middleware - Çok kolay kurulum",
+  "main": "guardian-middleware.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "keywords": ["security", "middleware", "ip-protection", "guardian", "raliux"],
+  "author": "Raliux",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.6.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/raliux/guardian-middleware"
+  }
+}

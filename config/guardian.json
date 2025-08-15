@@ -1,0 +1,78 @@
+{
+  "guardian": {
+    "name": "Raliux Web Guardian",
+    "version": "1.0.0",
+    "description": "Advanced Web Security Guardian Service",
+    "features": [
+      "IP Geolocation Analysis",
+      "Tor Exit Node Detection", 
+      "VPN/Proxy Detection",
+      "User Agent Analysis",
+      "IP Reputation Checking",
+      "Real-time Dashboard",
+      "Comprehensive Logging",
+      "Rate Limiting",
+      "Cache System"
+    ]
+  },
+  "security": {
+    "riskScoring": {
+      "tor": 80,
+      "vpn": 60,
+      "badReputation": 50,
+      "riskyCountry": 30,
+      "suspiciousUA": 20,
+      "bot": 15
+    },
+    "thresholds": {
+      "strict": 40,
+      "standard": 70
+    },
+    "blockedCountries": ["CN", "RU", "KP", "IR"],
+    "suspiciousASNs": [
+      "AS13335",
+      "AS15169", 
+      "AS16509",
+      "AS20473",
+      "AS14061",
+      "AS395747"
+    ]
+  },
+  "cache": {
+    "ttl": {
+      "ipAnalysis": 300,
+      "torNodes": 3600,
+      "geoData": 1800
+    },
+    "maxSize": {
+      "memory": "100mb",
+      "redis": "500mb"
+    }
+  },
+  "logging": {
+    "levels": ["error", "warn", "info", "debug"],
+    "retention": {
+      "logs": "30d",
+      "requests": "7d"
+    },
+    "format": "json"
+  },
+  "api": {
+    "rateLimiting": {
+      "window": "15m",
+      "max": 100,
+      "skipSuccessfulRequests": false
+    },
+    "timeout": "10s",
+    "retries": 3
+  },
+  "dashboard": {
+    "refreshInterval": 5000,
+    "maxLogs": 1000,
+    "theme": "neon-green",
+    "charts": {
+      "enabled": true,
+      "realtime": true
+    }
+  }
+}

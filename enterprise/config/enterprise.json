@@ -1,0 +1,136 @@
+{
+  "enterprise": {
+    "version": "1.0.0",
+    "edition": "Enterprise",
+    "features": {
+      "multiTenant": true,
+      "advancedAnalytics": true,
+      "customRules": true,
+      "apiRateLimiting": true,
+      "ssoIntegration": true,
+      "webhookSupport": true,
+      "prioritySupport": true,
+      "whiteLabeling": true
+    },
+    "limits": {
+      "requestsPerMonth": 10000000,
+      "maxCustomRules": 100,
+      "maxWebhooks": 50,
+      "maxUsers": 1000,
+      "dataRetentionDays": 365
+    }
+  },
+  "pricing": {
+    "plans": {
+      "starter": {
+        "name": "Starter",
+        "price": 29,
+        "currency": "USD",
+        "billing": "monthly",
+        "requestsPerMonth": 100000,
+        "features": ["basicProtection", "dashboard", "emailSupport"],
+        "limits": {
+          "maxCustomRules": 5,
+          "dataRetentionDays": 30
+        }
+      },
+      "professional": {
+        "name": "Professional", 
+        "price": 99,
+        "currency": "USD",
+        "billing": "monthly",
+        "requestsPerMonth": 1000000,
+        "features": ["advancedProtection", "analytics", "webhooks", "prioritySupport"],
+        "limits": {
+          "maxCustomRules": 25,
+          "maxWebhooks": 10,
+          "dataRetentionDays": 90
+        }
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "price": 299,
+        "currency": "USD", 
+        "billing": "monthly",
+        "requestsPerMonth": 10000000,
+        "features": ["fullProtection", "customRules", "sso", "whiteLabeling", "dedicatedSupport"],
+        "limits": {
+          "maxCustomRules": 100,
+          "maxWebhooks": 50,
+          "maxUsers": 1000,
+          "dataRetentionDays": 365
+        }
+      }
+    }
+  },
+  "deployment": {
+    "cloud": {
+      "supported": ["AWS", "Azure", "GCP", "DigitalOcean", "Railway"],
+      "recommendations": {
+        "starter": {
+          "cpu": "1 vCPU",
+          "memory": "1 GB RAM",
+          "storage": "10 GB SSD"
+        },
+        "professional": {
+          "cpu": "2 vCPU", 
+          "memory": "4 GB RAM",
+          "storage": "50 GB SSD"
+        },
+        "enterprise": {
+          "cpu": "4+ vCPU",
+          "memory": "8+ GB RAM", 
+          "storage": "100+ GB SSD",
+          "features": ["loadBalancer", "autoScaling", "backup"]
+        }
+      }
+    },
+    "onPremise": {
+      "supported": true,
+      "requirements": {
+        "os": ["Ubuntu 20.04+", "CentOS 8+", "RHEL 8+"],
+        "containerization": ["Docker", "Kubernetes"],
+        "database": ["SQLite", "PostgreSQL", "MySQL", "MongoDB"]
+      }
+    }
+  },
+  "integrations": {
+    "supported": {
+      "webFrameworks": ["Express.js", "Next.js", "Laravel", "Django", "Spring Boot"],
+      "cloudflareCDN": true,
+      "nginxReverseProxy": true,
+      "loadBalancers": ["HAProxy", "AWS ALB", "Azure Load Balancer"],
+      "monitoring": ["Prometheus", "Grafana", "New Relic", "DataDog"],
+      "siem": ["Splunk", "Elasticsearch", "QRadar"]
+    }
+  },
+  "compliance": {
+    "standards": ["SOC 2", "ISO 27001", "GDPR", "CCPA"],
+    "certifications": ["PCI DSS Level 1", "HIPAA Compatible"],
+    "features": {
+      "dataEncryption": "AES-256",
+      "transitEncryption": "TLS 1.3",
+      "auditLogs": true,
+      "dataResidency": true,
+      "rightToBeForgotten": true
+    }
+  },
+  "support": {
+    "channels": ["email", "chat", "phone", "slack"],
+    "sla": {
+      "starter": {
+        "responseTime": "24 hours",
+        "uptime": "99.9%"
+      },
+      "professional": {
+        "responseTime": "4 hours", 
+        "uptime": "99.95%"
+      },
+      "enterprise": {
+        "responseTime": "1 hour",
+        "uptime": "99.99%",
+        "dedicatedManager": true
+      }
+    }
+  }
+}

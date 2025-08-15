@@ -1,0 +1,51 @@
+# Raliux Guardian Configuration
+guardian:
+  port: 9000
+  license_key: "${LICENSE_KEY}"
+  
+security:
+  block_vpn_tor: true
+  strict_mode: false
+  cors_enabled: false
+  
+  # Risk thresholds
+  risk_threshold: 70
+  strict_threshold: 40
+  
+  # Rate limiting
+  rate_limit:
+    enabled: true
+    window_ms: 900000  # 15 minutes
+    max_requests: 1000
+
+logging:
+  format: jsonl
+  file: /app/logs/guardian.jsonl
+  rotation: true
+  max_size: 100MB
+  max_files: 10
+  level: info
+
+endpoints:
+  health: true
+  verify: true
+  dashboard: false  # Disabled in production
+  api: false        # Disabled in production
+
+data_sources:
+  tor_nodes: /app/data/tor-exit-nodes.txt
+  vpn_ranges: /app/data/vpn-ranges.txt
+  asn_database: /app/data/GeoLite2-ASN.mmdb
+  
+  # Update intervals (minutes)
+  update_interval:
+    tor_nodes: 60      # 1 hour
+    vpn_ranges: 1440   # 24 hours
+
+whitelist:
+  enabled: false
+  ips: []
+  
+blacklist:
+  enabled: false
+  ips: []

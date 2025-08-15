@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Guardian Dashboard</title>
+    <style>
+        /* Admin panel entegrasyon stilleri */
+        .guardian-container {
+            width: 100%;
+            height: 100vh;
+            background: #0d0d0d;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 2px solid #00ff88;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+        }
+
+        .guardian-header {
+            background: linear-gradient(135deg, #1a1a1a, #0d0d0d);
+            padding: 1rem;
+            border-bottom: 1px solid #00ff88;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .guardian-title {
+            color: #00ff88;
+            font-weight: bold;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .guardian-title i {
+            margin-right: 0.5rem;
+        }
+
+        .guardian-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .guardian-btn {
+            background: #00ff88;
+            color: #0d0d0d;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .guardian-btn:hover {
+            background: #00cc6a;
+        }
+
+        .guardian-frame {
+            width: 100%;
+            height: calc(100vh - 80px);
+            border: none;
+            background: #0d0d0d;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .guardian-container {
+                height: 100vh;
+                border-radius: 0;
+            }
+            
+            .guardian-header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+
+        /* Loading animation */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+            color: #00ff88;
+            font-size: 1.2rem;
+        }
+
+        .loading::after {
+            content: '';
+            width: 20px;
+            height: 20px;
+            border: 2px solid #00ff88;
+            border-top: 2px solid transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 1rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="guardian-container">
+        <div class="guardian-header">
+            <div class="guardian-title">
+                <i class="fas fa-shield-alt"></i>
+                Guardian Security Dashboard
+            </div>
+            <div class="guardian-actions">
+                <button class="guardian-btn" onclick="refreshDashboard()">
+                    <i class="fas fa-refresh"></i> Refresh
+                </button>
+                <button class="guardian-btn" onclick="openFullscreen()">
+                    <i class="fas fa-expand"></i> Fullscreen
+                </button>
+            </div>
+        </div>
+        
+        <div id="loading" class="loading">
+            Guardian Dashboard yükleniyor...
+        </div>
+        
+        <iframe 
+            id="guardianFrame"
+            class="guardian-frame"
+            src=""
+            style="display: none;"
+            onload="onFrameLoad()"
+            onerror="onFrameError()">
+        </iframe>
+    </div>
+
+    <script>
+        // Guardian URL'ini buraya gir (Railway deploy URL'in)
+        const GUARDIAN_URL = 'https://your-guardian-service.railway.app';
+        
+        // Dashboard credentials (güvenlik için backend'den al)
+        const DASHBOARD_CREDENTIALS = {
+            username: 'admin',
+            password: 'guardian123'
+        };
+
+        function initializeDashboard() {
+            const frame = document.getElementById('guardianFrame');
+            const loading = document.getElementById('loading');
+            
+            // Iframe'e credentials ekle (Basic Auth)
+            const auth = btoa(`${DASHBOARD_CREDENTIALS.username}:${DASHBOARD_CREDENTIALS.password}`);
+            
+            // Dashboard URL'i ayarla
+            frame.src = `${GUARDIAN_URL}/dashboard?auth=${auth}`;
+            
+            console.log('🛡️ Guardian Dashboard initializing...');
+        }
+
+        function onFrameLoad() {
+            const frame = document.getElementById('guardianFrame');
+            const loading = document.getElementById('loading');
+            
+            loading.style.display = 'none';
+            frame.style.display = 'block';
+            
+            console.log('✅ Guardian Dashboard loaded');
+        }
+
+        function onFrameError() {
+            const loading = document.getElementById('loading');
+            loading.innerHTML = '❌ Guardian Dashboard yüklenemedi. URL\'i kontrol edin.';
+            loading.style.color = '#ff4444';
+        }
+
+        function refreshDashboard() {
+            const frame = document.getElementById('guardianFrame');
+            const loading = document.getElementById('loading');
+            
+            loading.style.display = 'flex';
+            frame.style.display = 'none';
+            
+            setTimeout(() => {
+                frame.src = frame.src; // Reload
+            }, 500);
+        }
+
+        function openFullscreen() {
+            const url = `${GUARDIAN_URL}/dashboard`;
+            window.open(url, '_blank');
+        }
+
+        // Mesaj iletişimi (iframe ile parent window arası)
+        window.addEventListener('message', function(event) {
+            // Guardian dashboard'dan gelen mesajları işle
+            if (event.origin === GUARDIAN_URL) {
+                console.log('Guardian message:', event.data);
+                
+                // Örnek: Alert göster
+                if (event.data.type === 'alert') {
+                    alert(event.data.message);
+                }
+            }
+        });
+
+        // Sayfa yüklendiğinde dashboard'ı başlat
+        document.addEventListener('DOMContentLoaded', initializeDashboard);
+    </script>
+</body>
+</html>
