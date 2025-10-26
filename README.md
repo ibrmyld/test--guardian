@@ -1,4 +1,4 @@
-# 🛡️ Raliux Guardian
+# 🛡️ Test Guardian
 
 Enterprise-grade IP protection service that blocks malicious traffic in real-time.
 
@@ -9,7 +9,7 @@ Enterprise-grade IP protection service that blocks malicious traffic in real-tim
 export LICENSE_KEY="your_license_key_here"
 
 # 2. Run installer
-curl -sSL https://install.raliux.com/guardian | bash
+curl -sSL https://install.test.com/guardian | bash
 
 # 3. Test
 curl http://localhost:9000/health
@@ -244,12 +244,12 @@ cat guardian.jsonl | jq -r 'select(.event == "block") | .country' | sort | uniq 
 
 ### Hot Reload Configuration
 ```bash
-docker exec raliux-guardian kill -HUP 1
+docker exec test-guardian kill -HUP 1
 ```
 
 ### View Container Logs
 ```bash
-docker logs raliux-guardian --tail 100 -f
+docker logs test-guardian --tail 100 -f
 ```
 
 ---
